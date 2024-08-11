@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efek Foto Memutar dan Meledak</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            overflow: hidden; /* Ensure the text doesn't overflow the viewport */
+        }
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            padding: 1rem;
+            color: #fff;
+        }
+        .container {
+            position: relative;
+            width: 400px; /* Adjust width to fit the orbit effect */
+            height: 400px; /* Adjust height to fit the orbit effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image {
+            width: 300px;
+            height: 300px;
+            background: url('https://i.ibb.co/q0rXyLj/image.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            position: absolute;
+            animation: spin 5s linear infinite;
+        }
+        .orbit-container {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none; /* Ensure the orbit doesn't interfere with user interaction */
+        }
+        .orbit {
+            position: absolute;
+            width: 80px; /* Size of the orbiting image */
+            height: 80px;
+            background: url('https://i.ibb.co/K5MPqSf/image.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            animation: orbit 10s linear infinite;
+            /* Adjust animation duration to change orbit speed */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(150px); } /* Adjust translateX value to control orbit radius */
+            100% { transform: rotate(360deg) translateX(150px); }
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(2); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .explosion {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.ibb.co/K5MPqSf/image.png') no-repeat center center;
+            background-size: cover;
+            animation: explode 1s ease-out;
+            display: none;
+        }
+        .sigma-text {
+            position: absolute;
+            font-size: 2rem;
+            color: #fff;
+            font-weight: bold;
+            animation: moveSigma 10s linear infinite;
+        }
+        @keyframes moveSigma {
+            0% { transform: translate(-100px, -100px); }
+            25% { transform: translate(calc(100vw - 100px), -100px); }
+            50% { transform: translate(calc(100vw - 100px), calc(100vh - 50px)); }
+            75% { transform: translate(-100px, calc(100vh - 50px)); }
+            100% { transform: translate(-100px, -100px); }
+        }
+    </style>
+</head>
+<body>
+    <h1>AIB DAFFA 😱😱</h1>
+    <div class="container">
+        <div class="image"></div>
+        <div class="orbit-container">
+            <div class="orbit"></div>
+        </div>
+        <div class="explosion"></div>
+    </div>
+    <div class="sigma-text">SIGMA</div>
+
+    <script>
+        const image = document.querySelector('.image');
+        const explosion = document.querySelector('.explosion');
+
+        image.addEventListener('animationiteration', () => {
+            explosion.style.display = 'block';
+            setTimeout(() => {
+                explosion.style.display = 'none';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
