@@ -3,124 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROGRAM WEB BY FAHMEN😅</title>
+    <title>Animated Button with Falling Stars, Emojis, and Rocket</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
             height: 100vh;
-            margin: 0;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            overflow: hidden; /* Ensure the text doesn't overflow the viewport */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
         }
-        h1 {
-            font-size: 3rem;
-            margin: 0;
-            padding: 1rem;
-            color: #fff;
-        }
-        .container {
+
+        .button-container {
             position: relative;
-            width: 400px; /* Adjust width to fit the orbit effect */
-            height: 400px; /* Adjust height to fit the orbit effect */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            border: 2px solid #ff0047;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 0, 71, 0.5);
         }
-        .image {
-            width: 300px;
-            height: 300px;
-            background: url('https://i.ibb.co/q0rXyLj/image.png') no-repeat center center;
-            background-size: cover;
-            border-radius: 50%;
-            position: absolute;
-            animation: spin 5s linear infinite;
-        }
-        .orbit-container {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none; /* Ensure the orbit doesn't interfere with user interaction */
-        }
-        .orbit {
-            position: absolute;
-            width: 80px; /* Size of the orbiting image */
-            height: 80px;
-            background: url('https://i.ibb.co/K5MPqSf/image.png') no-repeat center center;
-            background-size: cover;
-            border-radius: 50%;
-            animation: orbit 10s linear infinite;
-            /* Adjust animation duration to change orbit speed */
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes orbit {
-            0% { transform: rotate(0deg) translateX(150px); } /* Adjust translateX value to control orbit radius */
-            100% { transform: rotate(360deg) translateX(150px); }
-        }
-        @keyframes explode {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(2); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .explosion {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://i.ibb.co/K5MPqSf/image.png') no-repeat center center;
-            background-size: cover;
-            animation: explode 1s ease-out;
-            display: none;
-        }
-        .sigma-text {
-            position: absolute;
-            font-size: 2rem;
-            color: #fff;
+
+        .button {
+            padding: 20px 40px;
+            background-color: #ff0047;
+            border: none;
+            color: white;
+            font-size: 24px;
             font-weight: bold;
-            animation: moveSigma 10s linear infinite;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: zoomIn 0.6s ease forwards, pulse 1.5s infinite;
         }
-        @keyframes moveSigma {
-            0% { transform: translate(-100px, -100px); }
-            25% { transform: translate(calc(100vw - 100px), -100px); }
-            50% { transform: translate(calc(100vw - 100px), calc(100vh - 50px)); }
-            75% { transform: translate(-100px, calc(100vh - 50px)); }
-            100% { transform: translate(-100px, -100px); }
+
+        .button:hover {
+            background-color: #e6003f;
+            box-shadow: 0 0 25px rgba(255, 0, 71, 0.7);
+        }
+
+        .star, .emoji {
+            position: absolute;
+            animation: fall 3s linear infinite;
+        }
+
+        .star {
+            width: 3px;
+            height: 3px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white, 0 0 20px white;
+        }
+
+        .emoji {
+            font-size: 24px;
+            animation: emojiRain 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .text {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff0047;
+            animation: textAnimation 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        .rocket {
+            position: absolute;
+            width: 50px;
+            height: 100px;
+            background-color: #ff0047;
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom center;
+            animation: rocketAnimation 2s ease-out forwards;
+        }
+
+        .rocket::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            width: 20px;
+            height: 30px;
+            background-color: #ff0047;
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+
+        .rocket::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            width: 10px;
+            height: 50px;
+            background-color: orange;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.8), 0 0 20px rgba(255, 165, 0, 0.8);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-200vh) translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh) translateX(calc(100vw * -0.25));
+                opacity: 0;
+            }
+        }
+
+        @keyframes emojiRain {
+            from {
+                opacity: 1;
+                transform: translateY(-100px) rotate(0deg);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(400px) rotate(360deg);
+            }
+        }
+
+        @keyframes textAnimation {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rocketAnimation {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: translateY(-50vh) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .star:nth-child(2) {
+            animation-duration: 4s;
+            animation-delay: 0.5s;
+        }
+
+        .star:nth-child(3) {
+            animation-duration: 5s;
+            animation-delay: 1s;
         }
     </style>
 </head>
 <body>
-    <h1>AIB DAFFA 😱😱</h1>
-    <div class="container">
-        <div class="image"></div>
-        <div class="orbit-container">
-            <div class="orbit"></div>
-        </div>
-        <div class="explosion"></div>
+
+    <div class="button-container">
+        <button class="button" onclick="handleClick()">Klik di sini untuk melanjutkan</button>
     </div>
-    <div class="sigma-text">SIGMA</div>
+
+    <audio id="audio" src="https://d.top4top.io/m_3157xsrv24.mp3"></audio>
 
     <script>
-        const image = document.querySelector('.image');
-        const explosion = document.querySelector('.explosion');
+        function handleClick() {
+            var audio = document.getElementById("audio");
+            audio.play();
 
-        image.addEventListener('animationiteration', () => {
-            explosion.style.display = 'block';
+            var button = document.querySelector('.button');
+            button.style.animation = 'fadeOut 0.6s ease forwards';
+            
+            // Generate emojis
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createEmoji, i * 100);
+            }
+
             setTimeout(() => {
-                explosion.style.display = 'none';
-            }, 1000);
-        });
+                button.style.display = 'none';
+            }, 600);
+
+            // Display the text "MAMPUS" and the rocket
+            setTimeout(() => {
+                createText();
+                createRocket();
+            }, 600);
+        }
+
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            emoji.innerText = '😂';
+            emoji.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(emoji);
+
+            emoji.addEventListener('animationend', () => {
+                emoji.remove();
+            });
+        }
+
+        function createText() {
+            const text = document.createElement('div');
+            text.classList.add('text');
+            text.innerText = 'MAMPUS';
+            text.style.left = '50%';
+            text.style.top = '50%';
+            text.style.transform = 'translate(-50%, -50%)';
+            document.body.appendChild(text);
+
+            text.addEventListener('animationend', () => {
+                text.remove();
+            });
+        }
+
+        function createRocket() {
+            const rocket = document.createElement('div');
+            rocket.classList.add('rocket');
+            rocket.style.left = '50%';
+            rocket.style.bottom = '10%';
+            rocket.style.transform = 'translateX(-50%)';
+            document.body.appendChild(rocket);
+
+            rocket.addEventListener('animationend', () => {
+                rocket.remove();
+            });
+        }
+
+        // Generate multiple stars
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.animationDuration = Math.random() * 3 + 3 + 's';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(star);
+        }
     </script>
+
 </body>
 </html>
